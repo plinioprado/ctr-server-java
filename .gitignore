@@ -1,0 +1,28 @@
+# Catch all Hidden files
+.*
+
+# Exceptions for catch all
+!/.gitignore
+
+# java/gradle
+/build/
+/bin/
+
+# IntelliJ IDEA
+
+*.iws
+*.iml
+*.ipr
+*.log
+/out/
+/tmp/
+
+# Netbeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdisp/
+
+# Others
+HELP.md
+
