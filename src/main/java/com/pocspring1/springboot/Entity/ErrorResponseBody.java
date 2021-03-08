@@ -2,17 +2,27 @@ package com.pocspring1.springboot.Entity;
 
 public class ErrorResponseBody {
 
-    String error;
+    int status;
+    String statusText;
 
-    public ErrorResponseBody(String error) {
-        setErrorMessage(error);
+    public ErrorResponseBody(int status, String statusText) {
+        setStatus(status);
+        setStatusText(statusText);
     }
 
-    public String getErrorMessage() {
-        return error;
+    public int getStatus() {
+        return this.status;
     }
 
-    public void setErrorMessage(String error) {
-        this.error = error;
+    public String getStatusText() {
+        return this.statusText;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
     }
 }

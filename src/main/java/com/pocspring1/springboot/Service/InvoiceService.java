@@ -17,12 +17,12 @@ public class InvoiceService {
         return invoiceDao.getAll();
     }
 
-    public Invoice getById(int id) {
-        return invoiceDao.getById(id);
+    public Invoice getByCod(String cod) {
+        return invoiceDao.getByCod(cod);
     }
 
-    public boolean deleteById(Integer id) {
-        return this.invoiceDao.deleteById(id);
+    public boolean deleteByCod(String cod) {
+        return this.invoiceDao.deleteByCod(cod);
     }
 
     public Invoice update(Invoice invoice) throws Exception {

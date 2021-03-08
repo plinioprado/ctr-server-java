@@ -2,74 +2,86 @@ package com.pocspring1.springboot.Entity;
 
 import javax.xml.bind.ValidationException;
 import java.util.Date;
+import java.util.List;
 
 public class Invoice {
-    private int number;
-    private Date dateIssue;
-    private String clientName;
-    private float value;
+    private String cod;
+    private Date dt;
+    private float val;
+    private Party cp;
+    private List<Receivable> recList;
 
-    public Invoice(int number, Date dateIssue, String clientName, float value) {
-        this.setNumber(number);
-        this.setDateIssue(dateIssue);
-        this.setClientName(clientName);
-        this.setValue(value);
+    public Invoice(String cod, Date dt, float val, Party cp, List<Receivable> recList) {
+        this.setCod(cod);
+        this.setDt(dt);
+        this.setVal(val);
+        this.setCp(cp);
+        this.setRecList(recList);
     }
 
     public Invoice() {}
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 
-    public void setDateIssue(Date dateIssue) {
-        this.dateIssue = dateIssue;
+    public void setDt(Date dt) {
+        this.dt = dt;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setVal(float val) {
+        this.val = val;
     }
 
-    public void setValue(float value) {
-        this.value = value;
+    public void setCp(Party cp) {
+        this.cp = cp;
     }
 
-    public int getNumber() {
-        return number;
+    public void setRecList(List<Receivable> recList) {
+        this.recList = recList;
     }
 
-    public Date getDateIssue() {
-        return dateIssue;
+    public String getCod() {
+        return cod;
     }
 
-    public String getClientName() {
-        return clientName;
+    public Date getDt() {
+        return dt;
     }
 
-    public float getValue() {
-        return value;
+    public float getVal() {
+        return val;
+    }
+
+    public Party getCp() {
+        return this.cp;
+    }
+
+    public List<Receivable> getRecList() {
+        return recList;
     }
 
     public void validate() throws Exception {
-        this.validateNumber(this.number);
-        this.validateDateIssue(this.dateIssue);
-        this.validateClientName(this.clientName);
-        this.validateValue(this.value);
+        this.validateCod(this.cod);
+        this.validateDt(this.dt);
+        this.validateVal(this.val);
     }
 
-    public void validateNumber(Integer number) throws ValidationException {
-        if (number == null || number < 1) throw new ValidationException("Invalid Number (blank)");
+    public void validateCod(String cod) throws ValidationException {
+        int number;
+        try {
+            number = Integer.parseInt(cod);
+        } catch (NumberFormatException e) {
+            number = 0;
+        }
+        if (number < 1) throw new ValidationException("Invalid Cod (blank)");
     }
 
-    public void validateDateIssue(Date dateIssue) throws ValidationException {
-        if (dateIssue == null || dateIssue.equals("") ) throw new ValidationException("Invalid Date issue (blank)");
+    public void validateDt(Date dt) throws ValidationException {
+        if (dt == null || dt.equals("") ) throw new ValidationException("Invalid Date issue (blank)");
     }
 
-    public void validateClientName(String clientName) throws ValidationException {
-        if (clientName == null || clientName.equals("") ) throw new ValidationException("Invalid Client name (blank)");
-    }
-
-    public void validateValue(float value) throws ValidationException {
-        if (value <= 0F) throw new ValidationException("Invalid Value");
+    public void validateVal(float val) throws ValidationException {
+        if (val <= 0F) throw new ValidationException("Invalid Value");
     }
 }
