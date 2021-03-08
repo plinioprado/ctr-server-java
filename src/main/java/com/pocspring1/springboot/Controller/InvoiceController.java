@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.xml.bind.ValidationException;
 import java.util.Collection;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/invoice")
 public class InvoiceController {
+
+    // TODO: Invoice should get client object like the node back-end
 
     @Autowired
     InvoiceService invoiceService;
@@ -29,10 +32,10 @@ public class InvoiceController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
+    @RequestMapping(value = "/{cod}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getByCod(@PathVariable("cod") String cod) {
         try {
-            Invoice invoice = this.invoiceService.getById(id);
+            Invoice invoice = this.invoiceService.getByCod(cod);
             return ResponseEntity.status(200).body(invoice);
         } catch (NullPointerException e) {
             System.out.println("Invoice not found");
@@ -43,10 +46,10 @@ public class InvoiceController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteById(@PathVariable("id") Integer id) {
+    @RequestMapping(value = "/{cod}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteByCod(@PathVariable("cod") String cod) {
         try {
-            boolean deleted = this.invoiceService.deleteById(id);
+            boolean deleted = this.invoiceService.deleteByCod(cod);
             if (!deleted) throw new ValidationException("Not deleted");
             return ResponseEntity.status(200).body(null);
         } catch (ValidationException e) {
@@ -87,7 +90,7 @@ public class InvoiceController {
     }
 
     private ResponseEntity getErrorResponse(int errorCode, String message) {
-        ErrorResponseBody errorBody = new ErrorResponseBody(message);
+        ErrorResponseBody errorBody = new ErrorResponseBody(errorCode, message);
         return ResponseEntity.status(errorCode).body(errorBody);
     }
 
