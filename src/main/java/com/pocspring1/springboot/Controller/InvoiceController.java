@@ -1,6 +1,5 @@
 package com.pocspring1.springboot.Controller;
 
-import com.pocspring1.springboot.Entity.ErrorResponseBody;
 import com.pocspring1.springboot.Entity.Invoice;
 import com.pocspring1.springboot.Service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,7 @@ import java.util.Collection;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/invoice")
-public class InvoiceController {
-
-    // TODO: Invoice should get client object like the node back-end
+public class InvoiceController extends BaseController {
 
     @Autowired
     InvoiceService invoiceService;
@@ -87,11 +84,6 @@ public class InvoiceController {
             System.out.println("Error inserting invoice: " + e.getMessage() + "," + e.getCause());
             return getErrorResponse(500, e.getMessage());
         }
-    }
-
-    private ResponseEntity getErrorResponse(int errorCode, String message) {
-        ErrorResponseBody errorBody = new ErrorResponseBody(errorCode, message);
-        return ResponseEntity.status(errorCode).body(errorBody);
     }
 
 }
