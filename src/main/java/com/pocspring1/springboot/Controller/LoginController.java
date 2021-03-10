@@ -1,8 +1,7 @@
 package com.pocspring1.springboot.Controller;
 
-import com.pocspring1.springboot.Entity.ErrorResponseBody;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import com.pocspring1.springboot.Entity.LoginRequestBody;
+import com.pocspring1.springboot.Entity.LoginResponseBody;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.bind.ValidationException;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping(value = "/login",
-        consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-        produces = {MediaType.APPLICATION_JSON_VALUE})
-public class LoginController {
+public class LoginController extends BaseController {
 
     /*
     @RequestMapping(method = RequestMethod.POST)
@@ -33,23 +31,33 @@ public class LoginController {
     }
     */
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> index() {
-        System.out.println("in /login-post");
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<String>("Login-post", responseHeaders, HttpStatus.OK);
+    @RequestMapping(value = "/login",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Object> login(LoginRequestBody requestBody) {
+        try {
+            System.out.println("in /login-post");
+            System.out.println("email=" + requestBody.getEmail());
+            System.out.println("pass=" + requestBody.getPass());
+            LoginResponseBody response = new LoginResponseBody();
+            return ResponseEntity.status(200).body(response);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return getErrorResponse(500, e.getMessage());
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<String> indexGet() {
-        System.out.println("in /login-get");
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<String>("Login-get", responseHeaders, HttpStatus.OK);
-    }
-
-    private ResponseEntity getErrorResponse(int errorCode, String message) {
-        ErrorResponseBody errorBody = new ErrorResponseBody(errorCode, message);
-        return ResponseEntity.status(errorCode).body(errorBody);
+    public ResponseEntity<String> loginGet() {
+        try {
+            System.out.println("in /login-get");
+            if (1 == 1) throw new ValidationException("error in /login-get");
+            return ResponseEntity.status(200).body("{ \"message\": \"Hi\"}");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return getErrorResponse(500, e.getMessage());
+        }
     }
 
 }
