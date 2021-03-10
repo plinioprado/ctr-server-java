@@ -5,9 +5,9 @@ public class Config {
     private BaseParty entity;
     private boolean active;
 
-    public Config() {
-        this.active = true;
-        this.entity = new BaseParty("Example Services Ltd", "001", "Example");
+    public Config(Boolean active, BaseParty baseParty) {
+        this.active = active;
+        this.entity = baseParty;
     }
 
     public BaseParty getEntity() {

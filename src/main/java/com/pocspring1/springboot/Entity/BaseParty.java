@@ -5,7 +5,7 @@ public class BaseParty {
     private String cod;
     private String shortName;
 
-    public BaseParty(String name, String cod, String shortName) {
+    public BaseParty(String name, String cod,  String shortName) {
         this.name = name;
         this.cod = cod;
         this.shortName = shortName;
