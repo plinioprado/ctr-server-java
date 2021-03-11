@@ -1,31 +1,31 @@
 package com.pocspring1.springboot.Entity;
 
 public class LoginResponseBody {
-    private Config configData;
-    private User userData;
+    private User user;
     private String token;
+    private BaseParty entity;
+
+    public BaseParty getEntity() {
+        return entity;
+    }
+
+    public void setEntity(BaseParty entity) {
+        this.entity = entity;
+    }
 
     public LoginResponseBody() {
     }
-
-    public void setConfigData(Config configData) {
-        this.configData = configData;
-    }
-
-    public void setUserData(User userData) {
-        this.userData = userData;
+    
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setToken(String token) {
         this.token = token;
     }
 
-    public Config getConfigData() {
-        return configData;
-    }
-
-    public User getUserData() {
-        return userData;
+    public User getUser() {
+        return user;
     }
 
     public String getToken() {

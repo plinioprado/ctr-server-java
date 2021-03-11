@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.xml.bind.ValidationException;
 import java.util.Collection;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/invoice")
 public class InvoiceController extends BaseController {
@@ -19,7 +18,7 @@ public class InvoiceController extends BaseController {
     InvoiceService invoiceService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Invoice>> getAll() {
+    public ResponseEntity getAll() {
         try {
             Collection<Invoice> invoiceList = this.invoiceService.getAll();
             return ResponseEntity.status(200).body(invoiceList);
