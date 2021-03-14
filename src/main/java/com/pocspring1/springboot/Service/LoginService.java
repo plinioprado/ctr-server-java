@@ -12,14 +12,14 @@ public class LoginService {
     @Autowired
     UserService userService;
 
-    public LoginResponseBody login() {
+    public LoginResponseBody login(String email, String pass) throws Exception {
+
+        User user = userService.getByEmail(email);
+        if (user.getPass() != pass) throw new Exception("403");
+
         LoginResponseBody loginResponse = new LoginResponseBody();
-
         loginResponse.setEntity(new BaseParty("Example Services Ltd.","001", "Example"));
-
-        User user = userService.gerByEmail("john@example.com");
         loginResponse.setUser(user);
-
         loginResponse.setToken("123321");
 
         return loginResponse;
