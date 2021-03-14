@@ -1,0 +1,4 @@
+"num","name", "email", "pass", active, "std", "fullName"
+1,"John", "john@example.com", "123456", true, "user", "John Smith"
+2,"Mary", "mary@example.com", "123456", true, "user", "Mary Smith"
+3,"Super", "super@example.com", "123456", true, "super", "Super admin"
