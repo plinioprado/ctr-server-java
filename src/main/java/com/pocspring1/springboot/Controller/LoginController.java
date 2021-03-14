@@ -23,9 +23,9 @@ public class LoginController extends BaseController {
     public ResponseEntity login(LoginRequestBody requestBody) {
         try {
             System.out.println("in /login-post");
-            System.out.println("email=" + requestBody.getEmail());
-            System.out.println("pass=" + requestBody.getPass());
-            LoginResponseBody response = loginService.login();
+            String email = "john.doe@example.com";
+            String pass = "123456";
+            LoginResponseBody response = loginService.login(email, pass);
             return ResponseEntity.status(200).body(response);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

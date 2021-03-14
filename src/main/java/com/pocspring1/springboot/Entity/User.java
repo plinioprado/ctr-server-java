@@ -51,6 +51,8 @@ public class User {
         this.setFullName(fullName);
     }
 
+    public User() {}
+
     public String getName() {
         return name;
     }

@@ -1,6 +1,6 @@
 package com.pocspring1.springboot.Service;
 
-import com.pocspring1.springboot.Dao.invoiceDao;
+import com.pocspring1.springboot.Dao.InvoiceDao;
 import com.pocspring1.springboot.Entity.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.Collection;
 public class InvoiceService {
 
     @Autowired
-    invoiceDao invoiceDao;
+    InvoiceDao invoiceDao;
 
     public Collection<Invoice> getAll() {
         return invoiceDao.getAll();

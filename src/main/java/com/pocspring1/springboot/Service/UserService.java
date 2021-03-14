@@ -17,7 +17,7 @@ public class UserService {
         return userDao.getAll();
     }
 
-    public User gerByEmail(String email) {
+    public User getByEmail(String email) {
         return userDao.getByEmail(email);
     }
 }
