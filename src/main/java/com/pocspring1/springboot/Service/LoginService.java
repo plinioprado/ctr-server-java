@@ -12,10 +12,10 @@ public class LoginService {
     @Autowired
     UserService userService;
 
-    public LoginResponseBody login(String email, String pass) throws Exception {
+    public LoginResponseBody login(String email, String pass) {
 
         User user = userService.getByEmail(email);
-        if (user.getPass() != pass) throw new Exception("403");
+        if (user == null || !user.getPass().equals(pass)) return null;
 
         LoginResponseBody loginResponse = new LoginResponseBody();
         loginResponse.setEntity(new BaseParty("Example Services Ltd.","001", "Example"));

@@ -23,7 +23,6 @@ public class UserController extends BaseController {
             List<User> userList = this.userService.getAll();
             return ResponseEntity.status(200).body(userList);
         } catch (Exception e) {
-            System.out.println("Error getting invoices: " + e.getMessage());
             return getErrorResponse(500, e.getMessage());
         }
     }

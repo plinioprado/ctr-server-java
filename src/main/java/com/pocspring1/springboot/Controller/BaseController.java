@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BaseController {
 
     ResponseEntity getErrorResponse(int errorCode, String message) {
+        System.out.println("Error " + errorCode + ": " + message);
         ErrorResponseBody errorBody = new ErrorResponseBody(errorCode, message);
         return ResponseEntity.status(errorCode).body(errorBody);
     }
