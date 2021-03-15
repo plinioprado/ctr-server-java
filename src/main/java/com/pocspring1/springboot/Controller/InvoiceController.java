@@ -34,10 +34,8 @@ public class InvoiceController extends BaseController {
             Invoice invoice = this.invoiceService.getByCod(cod);
             return ResponseEntity.status(200).body(invoice);
         } catch (NullPointerException e) {
-            System.out.println("Invoice not found");
             return getErrorResponse(400, e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error getting invoice: " + e.toString() + "," + e.getCause());
             return getErrorResponse(500, e.getMessage());
         }
     }

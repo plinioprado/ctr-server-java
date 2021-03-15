@@ -14,18 +14,25 @@ public class UserDao {
     private static List<User> users = new ArrayList<>();
 
     static {
-        users.add(new User(1,"John1", "john@example.com", "123456", true, "user", "John Smith"));
+        users.add(new User(1,"John", "john@example.com", "123456", true, "user", "John Smith"));
         users.add(new User(2,"Mary", "mary@example.com", "123456", true, "user", "Mary Smith"));
         users.add(new User(3,"Super", "super@example.com", "123456", true, "super", "Super admin"));
     }
 
     public List<User> getAll() {
-        return this.users;
+        return users;
     }
 
-    public User getByEmail(String email) {
-        System.out.println("email=" + email);
+    public User getByEmail(String userEmail) {
+        User user = null;
 
-        return new User(1,"John", "john@example.com", "123456", true, "user", "John Smith");
+        for (User value : users) {
+            if (value.getEmail().equals(userEmail)) {
+                user = value;
+                break;
+            }
+        }
+
+        return user;
     }
 }
