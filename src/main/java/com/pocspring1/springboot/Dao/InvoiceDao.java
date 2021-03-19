@@ -7,6 +7,7 @@ import com.pocspring1.springboot.Entity.Receivable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Repository
@@ -15,13 +16,14 @@ public class InvoiceDao {
     @Autowired
     private static Map<Integer, Invoice> invoices;
 
+
     static {
 
         invoices = new HashMap<Integer, Invoice>();
 
         invoices.put(1, new Invoice(
             "1",
-            new Date(2020, 1, 2),
+             LocalDate.of(2020, 1, 2),
             100.25F,
             new Party("001",
                 "Alpha Services Ltd.",
@@ -31,11 +33,11 @@ public class InvoiceDao {
                     "V6A 2S5",
                     "CAN")),
                 new ArrayList<Receivable>(
-                    Arrays.asList(new Receivable(new Date(2020, 2, 2), 100.25F))
+                    Arrays.asList(new Receivable(LocalDate.of(2020, 2, 2), 100.25F))
             )));
         invoices.put(2, new Invoice(
             "2",
-            new Date(2020, 1, 3),
+                LocalDate.of(2020, 1, 3),
             200.5F,
             new Party("002",
                 "Beta Industries Inc.",
@@ -45,11 +47,11 @@ public class InvoiceDao {
                     "V6A 2S5",
                     "CAN")),
                 new ArrayList<Receivable>(
-                        Arrays.asList(new Receivable(new Date(2020, 2, 3), 200.5F))
+                        Arrays.asList(new Receivable(LocalDate.of(2020, 2, 3), 200.5F))
         )));
         invoices.put(3, new Invoice(
             "3",
-            new Date(2020, 1, 4),
+             LocalDate.of(2020, 1, 4),
             1500F,
             new Party("001",
                 "Alpha Services Ltd.",
@@ -60,8 +62,8 @@ public class InvoiceDao {
                     "CAN")),
             new ArrayList<Receivable>(
                     Arrays.asList(
-                        new Receivable(new Date(2020, 2, 4), 750F),
-                        new Receivable(new Date(2020, 3, 4), 750F)
+                        new Receivable(LocalDate.of(2020, 2, 4), 750F),
+                        new Receivable(LocalDate.of(2020, 3, 4), 750F)
                     )
             )));
     }

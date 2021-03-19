@@ -72,8 +72,9 @@ public class InvoiceController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> insert(@RequestBody Invoice invoice) {
         try {
-            Invoice newInvoice = this.invoiceService.insert(invoice);
-            return ResponseEntity.status(200).body(invoice);
+            this.invoiceService.insert(invoice);
+            Collection<Invoice> invoiceList = this.invoiceService.getAll();
+            return ResponseEntity.status(200).body(invoiceList);
         } catch (ValidationException e) {
             System.out.println("Validation error inserting invoice: " + e.getMessage() + "," + e.getCause());
             return getErrorResponse(400, e.getMessage());

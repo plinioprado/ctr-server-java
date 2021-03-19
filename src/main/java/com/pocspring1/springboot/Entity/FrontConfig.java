@@ -1,6 +1,6 @@
 package com.pocspring1.springboot.Entity;
 
-public class LoginResponseBody {
+public class FrontConfig {
     private User user;
     private String token;
     private BaseParty entity;
@@ -13,7 +13,7 @@ public class LoginResponseBody {
         this.entity = entity;
     }
 
-    public LoginResponseBody() {
+    public FrontConfig() {
     }
     
     public void setUser(User user) {

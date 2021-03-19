@@ -1,7 +1,7 @@
 package com.pocspring1.springboot.Controller;
 
 import com.pocspring1.springboot.Entity.LoginRequestBody;
-import com.pocspring1.springboot.Entity.LoginResponseBody;
+import com.pocspring1.springboot.Entity.FrontConfig;
 import com.pocspring1.springboot.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ public class LoginController extends BaseController {
             System.out.println("in /login-post");
             String email = request.getEmail();
             String pass = request.getPass();
-            LoginResponseBody response = loginService.login(email, pass);
+            FrontConfig response = loginService.login(email, pass);
             if (response == null) {
                 return getErrorResponse(403, "Error: invalid login");
             }
