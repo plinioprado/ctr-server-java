@@ -1,17 +1,17 @@
 package com.pocspring1.springboot.Entity;
 
 import javax.xml.bind.ValidationException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Invoice {
     private String cod;
-    private Date dt;
+    private LocalDate dt;
     private float val;
     private Party cp;
     private List<Receivable> recList;
 
-    public Invoice(String cod, Date dt, float val, Party cp, List<Receivable> recList) {
+    public Invoice(String cod, LocalDate dt, float val, Party cp, List<Receivable> recList) {
         this.setCod(cod);
         this.setDt(dt);
         this.setVal(val);
@@ -25,7 +25,7 @@ public class Invoice {
         this.cod = cod;
     }
 
-    public void setDt(Date dt) {
+    public void setDt(LocalDate dt) {
         this.dt = dt;
     }
 
@@ -45,7 +45,7 @@ public class Invoice {
         return cod;
     }
 
-    public Date getDt() {
+    public LocalDate getDt() {
         return dt;
     }
 
@@ -77,8 +77,8 @@ public class Invoice {
         if (number < 1) throw new ValidationException("Invalid Cod (blank)");
     }
 
-    public void validateDt(Date dt) throws ValidationException {
-        if (dt == null || dt.equals("") ) throw new ValidationException("Invalid Date issue (blank)");
+    public void validateDt(LocalDate dt) throws ValidationException {
+        if (dt == null || dt.toString().equals("") ) throw new ValidationException("Invalid Date issue (blank)");
     }
 
     public void validateVal(float val) throws ValidationException {

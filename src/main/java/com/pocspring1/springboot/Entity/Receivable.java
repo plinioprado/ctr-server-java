@@ -1,22 +1,22 @@
 package com.pocspring1.springboot.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Receivable {
-    private Date dt;
+    private LocalDate dtDue;
     private Float val;
 
-    public Receivable(Date dt, Float val) {
-        this.setDt(dt);
+    public Receivable(LocalDate dtDue, Float val) {
+        this.setDtDue(dtDue);
         this.setVal(val);
     }
 
-    public Date getDt() {
-        return dt;
+    public LocalDate getDtDue() {
+        return dtDue;
     }
 
-    public void setDt(Date dt) {
-        this.dt = dt;
+    public void setDtDue(LocalDate dt) {
+        this.dtDue = dt;
     }
 
     public Float getVal() {
