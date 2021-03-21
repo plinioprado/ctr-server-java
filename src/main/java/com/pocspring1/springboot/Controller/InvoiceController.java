@@ -40,26 +40,13 @@ public class InvoiceController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/{cod}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteByCod(@PathVariable("cod") String cod) {
-        try {
-            boolean deleted = this.invoiceService.deleteByCod(cod);
-            if (!deleted) throw new ValidationException("Not deleted");
-            return ResponseEntity.status(200).body(null);
-        } catch (ValidationException e) {
-            System.out.println("Validation error deleting invoice: " + e.getMessage() + "," + e.getCause());
-            return getErrorResponse(400, e.getMessage());
-        } catch(Exception e) {
-            System.out.println("Error deleting invoice: " + e.getMessage() + "," + e.getCause());
-            return getErrorResponse(500, e.getMessage());
-        }
-    }
-
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> update(@RequestBody Invoice invoice) {
         try {
-            Invoice newInvoice = this.invoiceService.update(invoice);
-            return ResponseEntity.status(200).body(invoice);
+            System.out.println("put will update " + invoice.getCod());
+            this.invoiceService.update(invoice);
+            Collection<Invoice> invoiceList = this.invoiceService.getAll();
+            return ResponseEntity.status(200).body(invoiceList);
         } catch (ValidationException e) {
             System.out.println("Validation error updating invoice: " + e.getMessage() + "," + e.getCause());
             return getErrorResponse(400, e.getMessage());
@@ -72,14 +59,31 @@ public class InvoiceController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> insert(@RequestBody Invoice invoice) {
         try {
-            this.invoiceService.insert(invoice);
+            System.out.println("post will insert invoice " + invoice.getCod());
+            this.invoiceService.create(invoice);
             Collection<Invoice> invoiceList = this.invoiceService.getAll();
             return ResponseEntity.status(200).body(invoiceList);
         } catch (ValidationException e) {
-            System.out.println("Validation error inserting invoice: " + e.getMessage() + "," + e.getCause());
+            System.out.println("Validation error creating invoice: " + e.getMessage() + "," + e.getCause());
             return getErrorResponse(400, e.getMessage());
         } catch(Exception e) {
             System.out.println("Error inserting invoice: " + e.getMessage() + "," + e.getCause());
+            return getErrorResponse(500, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/{cod}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteByCod(@PathVariable("cod") String cod) {
+        try {
+            System.out.println("delete will delete " + cod);
+            boolean deleted = this.invoiceService.deleteByCod(cod);
+            Collection<Invoice> invoiceList = this.invoiceService.getAll();
+            return ResponseEntity.status(200).body(invoiceList);
+        } catch (ValidationException e) {
+            System.out.println("Validation error deleting invoice: " + e.getMessage() + "," + e.getCause());
+            return getErrorResponse(400, e.getMessage());
+        } catch(Exception e) {
+            System.out.println("Error deleting invoice: " + e.getMessage() + "," + e.getCause());
             return getErrorResponse(500, e.getMessage());
         }
     }

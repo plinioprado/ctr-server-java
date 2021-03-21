@@ -68,13 +68,20 @@ public class Invoice {
     }
 
     public void validateCod(String cod) throws ValidationException {
-        int number;
         try {
-            number = Integer.parseInt(cod);
+            int number = Integer.parseInt(cod);
+            if (number < 0) throw new ValidationException("Invalid Cod (value < 0)");
         } catch (NumberFormatException e) {
-            number = 0;
+            throw new ValidationException("Invalid Cod (not numeric)");
         }
-        if (number < 1) throw new ValidationException("Invalid Cod (blank)");
+    }
+
+    public void validateCodCreate() throws ValidationException {
+        if (!this.cod.equals("0")) throw new ValidationException("Invalid Cod (value not '0' in create)");
+    }
+
+    public void validateCodUpdate() throws ValidationException {
+        if (this.cod.equals("0")) throw new ValidationException("Invalid Cod (value '0' in update)");
     }
 
     public void validateDt(LocalDate dt) throws ValidationException {

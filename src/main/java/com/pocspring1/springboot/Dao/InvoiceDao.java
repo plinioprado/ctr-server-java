@@ -30,10 +30,10 @@ public class InvoiceDao {
                 new Address("201-111 Main Street",
                     "Vancouver",
                     "BC",
-                    "V6A 2S5",
+                    "V6A2S5",
                     "CAN")),
                 new ArrayList<Receivable>(
-                    Arrays.asList(new Receivable(LocalDate.of(2020, 2, 2), 100.25F))
+                    Arrays.asList(new Receivable(1, LocalDate.of(2020, 2, 2), 100.25F))
             )));
         invoices.put(2, new Invoice(
             "2",
@@ -44,10 +44,10 @@ public class InvoiceDao {
                 new Address("201-111 Main Street",
                     "Vancouver",
                     "BC",
-                    "V6A 2S5",
+                    "V6A2S5",
                     "CAN")),
                 new ArrayList<Receivable>(
-                        Arrays.asList(new Receivable(LocalDate.of(2020, 2, 3), 200.5F))
+                        Arrays.asList(new Receivable(1, LocalDate.of(2020, 2, 3), 200.5F))
         )));
         invoices.put(3, new Invoice(
             "3",
@@ -58,12 +58,12 @@ public class InvoiceDao {
                 new Address("201-111 Main Street",
                     "Vancouver",
                     "BC",
-                    "V6A 2S5",
+                    "V6A2S5",
                     "CAN")),
             new ArrayList<Receivable>(
                     Arrays.asList(
-                        new Receivable(LocalDate.of(2020, 2, 4), 750F),
-                        new Receivable(LocalDate.of(2020, 3, 4), 750F)
+                        new Receivable(1, LocalDate.of(2020, 2, 4), 750F),
+                        new Receivable(2, LocalDate.of(2020, 3, 4), 750F)
                     )
             )));
     }
@@ -74,32 +74,34 @@ public class InvoiceDao {
 
     public Invoice getByCod(String cod) {
         Integer number = Integer.parseInt(cod);
-        System.out.println("will get invoice for cod=" + cod);
-        Invoice inv = this.invoices.get(number);
-        return inv;
+        Invoice invoice = this.invoices.get(number);
+        return invoice;
     }
 
-    public boolean deleteByCod(String cod) {
+    public boolean deleteByCod(String cod) throws Exception {
         try {
-            Invoice deleted = this.invoices.remove(cod);
+            System.out.println("in deleteDao");
+            int number = Integer.parseInt(cod);
+            Invoice deleted = this.invoices.remove(number);
             if (deleted == null) throw new Exception("Not deleted");
             return true;
         } catch (Exception e) {
-            return false;
+            throw new Exception("Not deleted");
         }
     }
 
     public Invoice update(Invoice invoice) {
-        Invoice inv = invoices.get(invoice.getCod());
-        inv.setVal(invoice.getVal());
-        inv.setDt(invoice.getDt());
-        return inv;
+        int number = Integer.parseInt(invoice.getCod());
+        invoices.replace(number, invoice);
+        return invoice;
     }
 
-    public Invoice insert(Invoice invoice) {
-        System.out.println("dao will insert");
-        Integer number = Integer.parseInt(invoice.getCod());
-        this.invoices.put(number, invoice);
+    public Invoice create(Invoice invoice) {
+        System.out.println("in dao.create");
+        TreeMap sortedMap = new TreeMap<>(invoices);
+        Integer nextNumber = ((Integer) sortedMap.lastKey()) + 1;
+        invoice.setCod(nextNumber.toString());
+        this.invoices.put(nextNumber, invoice);
         return invoice;
     }
 
