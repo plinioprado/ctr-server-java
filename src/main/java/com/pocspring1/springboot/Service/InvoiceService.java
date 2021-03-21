@@ -21,18 +21,23 @@ public class InvoiceService {
         return invoiceDao.getByCod(cod);
     }
 
-    public boolean deleteByCod(String cod) {
+    public boolean deleteByCod(String cod) throws Exception {
         return this.invoiceDao.deleteByCod(cod);
     }
 
     public Invoice update(Invoice invoice) throws Exception {
+        System.out.print("in updateSrv");
+        System.out.println(", cod=" + invoice.getCod());
         invoice.validate();
+        invoice.validateCodUpdate();
+        System.out.println("passed validations");
         return this.invoiceDao.update(invoice);
     }
 
-    public Invoice insert(Invoice invoice) throws Exception {
+    public Invoice create(Invoice invoice) throws Exception {
         invoice.validate();
-        return this.invoiceDao.insert(invoice);
+        invoice.validateCodCreate();
+        return this.invoiceDao.create(invoice);
     }
 
 }
